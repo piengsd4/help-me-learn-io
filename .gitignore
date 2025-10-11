@@ -1,2 +1,14 @@
+# VS Code Setting
 .vscode/
+
+# Dependency
 node_modules/
+.venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.ruff_cache/
