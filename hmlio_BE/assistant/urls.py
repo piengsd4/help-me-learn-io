@@ -1,8 +1,9 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import GoalViewSet, InstructionViewSet
 
-urlpatterns = [
-    path("create-goal/", views.GoalCreate.as_view(), name="create-new-goal"),
-    path("update-goal/<int:pk>/", views.GoalUpdate.as_view(), name="update-existing-goal"),
-    path("delete-goal/<int:pk>/", views.GoalDelete.as_view(), name="delete-existing-goal"),
-]
+router = DefaultRouter()
+router.register(r"goal", GoalViewSet, basename="goal")
+router.register(r"instructions", InstructionViewSet, basename="instruction")
+
+urlpatterns = [path("", include(router.urls))]

@@ -1,23 +1,36 @@
-from django.shortcuts import render
-from rest_framework import generics, status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .models import Goal
-from .serializers import GoalSerializer
-from django.db import models
+from rest_framework import viewsets
+from .models import Goal, Instruction
+from .serializers import GoalSerializer, InstructionSerializer
 
-class BaseGoalView:
+
+class GoalViewSet(viewsets.ModelViewSet):
     queryset = Goal.objects.all()
     serializer_class = GoalSerializer
 
-class GoalCreate(BaseGoalView, generics.CreateAPIView):
-    # This has POST method
-    pass
-    
-class GoalUpdate(BaseGoalView, generics.UpdateAPIView):
-    # This has PUT and PATCH method
-    pass
+    # These are straightforward, only post, put, get
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
-class GoalDelete(BaseGoalView, generics.DestroyAPIView):
-    # This has DELETE method
-    pass
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+
+class InstructionViewSet(viewsets.ModelViewSet):
+    serializer_class = InstructionSerializer
+
+    def get_queryset(self):
+        queryset = Instruction.objects.all()
+        goal_id = self.request.query_params.get("goal_id")
+        if goal_id:
+            queryset = queryset.filter(goal_id=goal_id)
+        return queryset
+
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    # The instructions should get updated through the LLM when we refresh
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
