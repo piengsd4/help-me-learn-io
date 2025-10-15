@@ -12,6 +12,7 @@ click-plugins==1.1.1.2
 click-repl==0.3.0
 Django==5.2.7
 django-cors-headers==4.9.0
+django-debug-toolbar==6.0.0
 djangorestframework==3.16.1
 environs==14.3.0
 h11==0.16.0
@@ -23,7 +24,8 @@ marshmallow==4.0.1
 ollama==0.6.0
 packaging==25.0
 prompt_toolkit==3.0.52
-psycopg2-binary==2.9.10
+psycopg==3.2.10
+psycopg-binary==3.2.10
 pydantic==2.11.10
 pydantic_core==2.33.2
 python-dateutil==2.9.0.post0
