@@ -1,4 +1,12 @@
 services:
+  frontend:
+    build: ./hmlio_FE
+    container_name: vue_app
+    ports:
+      - 3000:80
+    depends_on:
+      - web
+
   web:
     build: .
     container_name: django_app
@@ -12,16 +20,14 @@ services:
         restart: true
     env_file:
       - .env
-  
+
   database:
     image: postgres:latest
     container_name: postgres_db
     volumes:
       - postgres_db:/var/lib/postgresql/data/
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s

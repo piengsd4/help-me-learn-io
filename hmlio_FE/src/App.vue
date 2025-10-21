@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HMLHeader from './components/HMLHeader.vue'
-import HMLGoalsAndInstructions from './components/HMLGoalsAndInstructions.vue'
 </script>
 
 <template>
@@ -15,13 +14,13 @@ import HMLGoalsAndInstructions from './components/HMLGoalsAndInstructions.vue'
     <HMLHeader />
 
     <main
-      class="relative flex-grow flex flex-col items-center justify-center px-4 py-10 z-10"
+      class="relative flex-grow flex flex-col items-center px-4 pt-6 pb-10 z-10"
     >
-      <HMLGoalsAndInstructions />
+      <router-view />
     </main>
 
     <footer class="text-center text-gray-500 py-4 text-sm border-t border-gray-800/50">
-      © {{ new Date().getFullYear() }} Help Me Learn IO • Built with 💡 Django + Vue
+      © {{ new Date().getFullYear() }} Help Me Learn IO • Built with Django + Vue
     </footer>
   </div>
 </template>

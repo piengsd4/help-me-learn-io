@@ -11,6 +11,16 @@ from ollama import ChatResponse, AsyncClient
 async def generate_with_llm(goal: Goal, model: str) -> str:
     print(f"Starting LLM generation for goal: {goal.description} with model: {model}")
 
+    if model == "test":
+        print("Returning mock instructions for testing")
+        return {
+            "Step 1": "Do A",
+            "Step 2": "Watch B",
+            "Step 3": "Write C",
+            "Step 4": "Exercise",
+            "Step 5": "Sleep more",
+        }
+
     # LLM Prompt
     messages: list[dict] = [
         {

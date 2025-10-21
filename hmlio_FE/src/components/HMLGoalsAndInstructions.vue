@@ -19,7 +19,6 @@
       type="submit"
       class="rounded-md bg-gradient-to-r from-indigo-500 to-purple-600 px-5 py-2 text-white font-medium shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-200 flex items-center space-x-2"
     >
-      <SparklesIcon class="w-5 h-5" />
       <span>Submit</span>
     </button>
   </form>
@@ -121,7 +120,6 @@ import axios from 'axios'
 import type { Goal, Instruction } from '../types'
 
 import {
-  SparklesIcon,
   AcademicCapIcon,
   ClipboardDocumentListIcon,
 } from '@heroicons/vue/24/solid'
@@ -159,7 +157,7 @@ watch(instructions, (newVal) => {
 
 async function generate_instructions(goal_id: number, model: string) {
   const response = await axios.post(
-    `http://127.0.0.1:8000/llm/generate_instructions/${goal_id}/${model}`,
+    `http://127.0.0.1:8000/llm/generate_instructions/${goal_id}/test`,
   )
   return response.data
 }
@@ -184,7 +182,7 @@ const handleGoalSubmit = async () => {
 
       // Then fetch the generated instructions
       const res_instructions = await axios.get(
-        `http://127.0.0.1:8000/assistant/instructions/?goal_id=${goal.value.id}`,
+        `http://127.0.0.1:8000/assistant/instruction/?goal_id=${goal.value.id}`,
       )
       instructions.value = res_instructions.data
     }
@@ -197,18 +195,20 @@ const handleGoalSubmit = async () => {
 
 onMounted(async () => {
   try {
-    if (goal.value) {
-      loading.value = true
+    const id = goal.value?.id
+    if (id == null) return
 
-      const current_goal = await axios.get(`http://127.0.0.1:8000/assistant/goal/${goal.value?.id}`)
-      goal.value = current_goal.data
+    loading.value = true
 
-      const current_instructions = await axios.get(
-        `http://127.0.0.1:8000/assistant/instructions/?goal_id=${goal.value?.id}`,
-      )
-      instructions.value = current_instructions.data
-    }
+    const current_goal = await axios.get(`http://127.0.0.1:8000/assistant/goal/${goal.value?.id}`)
+    goal.value = current_goal.data
+
+    const current_instructions = await axios.get(
+      `http://127.0.0.1:8000/assistant/instruction/?goal_id=${goal.value?.id}`,
+    )
+    instructions.value = current_instructions.data
   } catch (err) {
+    goal.value = undefined
     error.value = err instanceof Error ? err.message : 'Failed to fetch data'
   } finally {
     loading.value = false
@@ -217,7 +217,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Fade transitions */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
@@ -227,7 +226,6 @@ onMounted(async () => {
   opacity: 0;
 }
 
-/* Fade-up transition */
 .fade-up-enter-active,
 .fade-up-leave-active {
   transition: all 0.4s ease;
@@ -241,7 +239,6 @@ onMounted(async () => {
   transform: translateY(-12px);
 }
 
-/* Typing dots animation */
 .typing-dots {
   display: inline-flex;
   justify-content: center;
@@ -251,7 +248,7 @@ onMounted(async () => {
 .typing-dots span {
   animation: bounce 1.2s infinite;
   font-size: 1.2rem;
-  color: #a5b4fc; /* Indigo-300 */
+  color: #a5b4fc;
 }
 .typing-dots span:nth-child(2) {
   animation-delay: 0.2s;
