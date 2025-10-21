@@ -32,24 +32,26 @@
 
       <!-- Navigation -->
       <nav class="hidden sm:flex items-center space-x-6">
-        <a
-          href="#"
+        <router-link
+          to="/"
           class="relative text-sm font-medium text-gray-300 hover:text-indigo-400 transition"
+          active-class="text-indigo-400"
         >
           Main
           <span
             class="absolute left-0 bottom-0 h-[2px] w-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-300 hover:w-full"
           ></span>
-        </a>
-        <a
-          href="#"
+        </router-link>
+        <router-link
+          to="/about"
           class="relative text-sm font-medium text-gray-300 hover:text-indigo-400 transition"
+          active-class="text-indigo-400"
         >
           About
           <span
             class="absolute left-0 bottom-0 h-[2px] w-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-300 hover:w-full"
           ></span>
-        </a>
+        </router-link>
       </nav>
     </div>
   </header>
