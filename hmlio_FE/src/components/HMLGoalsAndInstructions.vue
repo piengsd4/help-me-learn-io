@@ -90,14 +90,14 @@
           </div>
 
           <!-- Checkbox -->
-          <label class="relative flex items-center cursor-pointer">
+          <label v-if="checkedSteps[instruction.id]" class="relative flex items-center cursor-pointer">
             <input
               type="checkbox"
-              v-model="checkedSteps[instruction.id][index]"
+              v-model="checkedSteps[instruction.id]![index]"
               class="peer appearance-none w-6 h-6 border-2 border-indigo-500 rounded-md bg-gray-800/70 checked:bg-gradient-to-r checked:from-indigo-500 checked:to-purple-600 transition-all duration-200"
             />
             <svg
-              v-if="checkedSteps[instruction.id][index]"
+              v-if="checkedSteps[instruction.id]![index]"
               xmlns="http://www.w3.org/2000/svg"
               class="absolute w-4 h-4 text-white pointer-events-none left-1 top-1"
               fill="none"
