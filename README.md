@@ -7,7 +7,7 @@ AI-powered learning assistant designed to help you achieve your educational goal
 - **Frontend:** Vue 3 + TypeScript + Tailwind CSS + Vite
 - **Backend:** Django + Django REST Framework
 - **Database:** PostgreSQL
-- **Task Queue:** Celery + Redis
+- **Task Queue:** Celery + Redis (currently implemented but not actually being used)
 - **Containerization:** Docker + Docker Compose
 
 ## Setup
