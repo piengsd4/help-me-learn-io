@@ -1,9 +1,13 @@
 services:
   frontend:
-    build: ./hmlio_FE
+    build: 
+      context: ./hmlio_FE
+      dockerfile: Dockerfile
     container_name: vue_app
     ports:
       - 3000:80
+    env_file:
+      - ./hmlio_FE/.env
     depends_on:
       - web
 
@@ -25,7 +29,7 @@ services:
     image: postgres:latest
     container_name: postgres_db
     volumes:
-      - postgres_db:/var/lib/postgresql/data/
+      - postgres_db:/var/lib/postgresql/
     env_file:
       - .env
     healthcheck:

@@ -1,7 +1,6 @@
 import os
 
 from celery import Celery
-from config.env import env
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.django.local")
