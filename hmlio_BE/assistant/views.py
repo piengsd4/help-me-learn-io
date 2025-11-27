@@ -1,11 +1,8 @@
-from rest_framework import status, generics, filters
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, filters
 
 from .models import Goal, Instruction
 from .serializers import GoalSerializer, InstructionSerializer
-from .tasks import send_goal_confirmation_email
+# from .tasks import send_goal_confirmation_email
 
 
 class GoalDetailApi(generics.RetrieveUpdateDestroyAPIView):

@@ -14,7 +14,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.django.local')
 sys.path.insert(0, '/app')
 django.setup()
 
-from celery import Celery
 from django.conf import settings
 import redis
 

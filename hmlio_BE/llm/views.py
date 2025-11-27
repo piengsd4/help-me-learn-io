@@ -56,6 +56,9 @@ def generate_instructions(_request, goal_id: int, model: str) -> Response:
 
     result = asyncio.run(generate_with_llm(goal=goal, model=model))
 
+    # Replace any existing instructions for this goal so the client only sees the latest set
+    Instruction.objects.filter(goal_id=goal_id).delete()
+
     # Create instruction with the LLM response
     serializer = InstructionSerializer(data={"goal": goal_id, "content": result})
     if serializer.is_valid():

@@ -132,6 +132,8 @@ const checkedSteps = ref<{ [key: number]: boolean[] }>({})
 const loading = ref(false)
 const error = ref('')
 
+const API_URL = import.meta.env.VITE_API_URL
+
 // Save & Load from localStorage for persistence
 onMounted(() => {
   const storedGoal = localStorage.getItem('goal')
@@ -157,7 +159,7 @@ watch(instructions, (newVal) => {
 
 async function generate_instructions(goal_id: number, model: string) {
   const response = await axios.post(
-    `http://127.0.0.1:8000/llm/generate_instructions/${goal_id}/test`,
+    `${API_URL}/llm/generate_instructions/${goal_id}/test`,
   )
   return response.data
 }
@@ -168,7 +170,7 @@ const handleGoalSubmit = async () => {
   loading.value = true
 
   try {
-    const response = await axios.post('http://127.0.0.1:8000/assistant/goal/', {
+    const response = await axios.post(`${API_URL}/assistant/goal/`, {
       title: goalInput.value,
       description: goalInput.value,
     })
@@ -182,7 +184,7 @@ const handleGoalSubmit = async () => {
 
       // Then fetch the generated instructions
       const res_instructions = await axios.get(
-        `http://127.0.0.1:8000/assistant/instruction/?goal_id=${goal.value.id}`,
+        `${API_URL}/assistant/instruction/?goal_id=${goal.value.id}`,
       )
       instructions.value = res_instructions.data
     }
@@ -200,11 +202,11 @@ onMounted(async () => {
 
     loading.value = true
 
-    const current_goal = await axios.get(`http://127.0.0.1:8000/assistant/goal/${goal.value?.id}`)
+    const current_goal = await axios.get(`${API_URL}/assistant/goal/${goal.value?.id}`)
     goal.value = current_goal.data
 
     const current_instructions = await axios.get(
-      `http://127.0.0.1:8000/assistant/instruction/?goal_id=${goal.value?.id}`,
+      `${API_URL}/assistant/instruction/?goal_id=${goal.value?.id}`,
     )
     instructions.value = current_instructions.data
   } catch (err) {

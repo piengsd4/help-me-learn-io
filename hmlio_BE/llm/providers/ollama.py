@@ -1,5 +1,5 @@
 from typing import Any
-import httpx, json
+import httpx
 from hmlio_BE.llm.conf import LLM_TIMEOUT_SECONDS, OLLAMA_BASE_URL, OLLAMA_MODEL
 from llm.views import BaseLLMClient
 
