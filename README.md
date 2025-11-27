@@ -22,9 +22,7 @@ AI-powered learning assistant designed to help you achieve your educational goal
 
 1. Clone the repository
 2. Create `.env` file in the project root (see `.env.example`)
-3. Create frontend env files:
-   - `hmlio_FE/.env` for local dev, e.g. `VITE_API_URL=http://localhost:8000`
-   - `hmlio_FE/.env.production` for Docker/production, e.g. `VITE_API_URL=http://django_app:8000` so the frontend container can reach Django on the compose network
+3. Create frontend env files. There's already a .env.production for npm run build as this is only meant to be run locally.
 3. Build and start all services:
 
 ```bash
